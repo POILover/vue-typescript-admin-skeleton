@@ -9,6 +9,8 @@
     "svg": "vsvg -s ./src/icons/svg -t ./src/icons/components --ext ts --es6"
   },
   "dependencies": {
+    "vue-avatar": "^2.3.3",
+    "vuedraggable": "^2.24.3",
     "xlsx": "^0.16.8",
     "file-saver": "^2.0.2",
     "axios": "^0.21.0",

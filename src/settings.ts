@@ -4,7 +4,7 @@ interface ISettings {
 
 // You can customize below settings :)
 const settings: ISettings = {
-  title: 'Tartan Admin',
+  title: 'POI Admin',
 }
 
 export default settings

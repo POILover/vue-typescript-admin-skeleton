@@ -5,7 +5,14 @@ import router, { resetRouter } from '@/router'
 import { PermissionModule } from './permission'
 import { TagsViewModule } from './tags-view'
 import store from '@/store'
-
+//TODO:
+/**
+ *  token
+ *  userInfo
+ *  
+ */
+const token = "virtual token"
+const userInfo = { name: 'POILover', role: 'admin', avatar: '', introduction: '', email: '312822458@qq.com' }
 export interface IUserState {
   token: string
   name: string
@@ -55,12 +62,15 @@ class User extends VuexModule implements IUserState {
   }
 
   @Action
-  public async Login(userInfo: { username: string, password: string}) {
+  public async Login(userInfo: { username: string, password: string }) {
     let { username, password } = userInfo
     username = username.trim()
-    const { data } = await login({ username, password })//TODO: type:AxiosResponse
-    setToken(data.result.token)
-    this.SET_TOKEN(data.result.token)
+    // TODO:
+    // const { data } = await login({ username, password })
+    // setToken(data.result.token)
+    // this.SET_TOKEN(data.result.token)
+    setToken(token)
+    this.SET_TOKEN(token)
   }
 
   @Action
@@ -75,15 +85,18 @@ class User extends VuexModule implements IUserState {
     if (this.token === '') {
       throw Error('GetUserInfo: token is undefined!')
     }
-    const { data } = await getUserInfo({ /* Your params here */ })
+    // TODO:
+    // const { data } = await getUserInfo({ /* Your params here */ })
+    const data = userInfo
     if (!data) {
       throw Error('Verification failed, please Login again.')
     }
-    const { role, name, avatar, introduction, email } = data.result
+    const { role, name, avatar, introduction, email } = data
     // role must be a non-empty array
     if (!role || role.length <= 0) {
       throw Error('GetUserInfo: role must be a non-null array!')
     }
+
     this.SET_ROLES([role.toLowerCase()])
     this.SET_NAME(name)
     this.SET_AVATAR(avatar)

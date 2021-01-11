@@ -27,18 +27,24 @@ export const filterAsyncRoutes = (routes: RouteConfig[], roles: string[]) => {
 
 export interface IPermissionState {
   routes: RouteConfig[]
-  dynamicRoutes: RouteConfig[]
+  dynamicRoutes: RouteConfig[],
+  defaultPath: string
 }
 
 @Module({ dynamic: true, store, name: 'permission' })
 class Permission extends VuexModule implements IPermissionState {
   public routes: RouteConfig[] = []
   public dynamicRoutes: RouteConfig[] = []
+  public defaultPath: string = ''
 
   @Mutation
   private SET_ROUTES(routes: RouteConfig[]) {
     this.routes = constantRoutes.concat(routes)
     this.dynamicRoutes = routes
+  }
+  @Mutation
+  private SET_DEFAULT_PATH(path: string) {
+    this.defaultPath = path
   }
 
   @Action
@@ -50,6 +56,7 @@ class Permission extends VuexModule implements IPermissionState {
       accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
     }
     this.SET_ROUTES(accessedRoutes)
+    this.SET_DEFAULT_PATH(accessedRoutes[0].path)
   }
 }
 

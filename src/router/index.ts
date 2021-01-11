@@ -34,10 +34,10 @@ Vue.use(VueRouter)
  * NOTE:层级菜单的redirect一定要到最深的一层，不能逐级重定向，否则tagsview会有bug
  */
 
- /**
-  ConstantRoutes
-  a base page that does not have permission requirements
-  all roles can be accessed
+/**
+ ConstantRoutes
+ a base page that does not have permission requirements
+ all roles can be accessed
 */
 export const constantRoutes: RouteConfig[] = [
   {
@@ -66,26 +66,26 @@ export const constantRoutes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "401" */ '@/views/error-page/401.vue'),
     meta: { hidden: true }
   },
-  {
-    path: '/dashboard',
-    component: Layout,
-    redirect: '/dashboard/index',
-    meta:{
-      title:'首页'
-    },
-    children: [
-      {
-        path: 'index',
-        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
-        name: 'Dashboard',
-        meta: {
-          title: '首页',
-          icon: 'dashboard',
-          affix: true
-        }
-      }
-    ]
-  },
+  // {
+  //   path: '/dashboard',
+  //   component: Layout,
+  //   redirect: '/dashboard/index',
+  //   meta: {
+  //     title: '首页'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
+  //       name: 'Dashboard',
+  //       meta: {
+  //         title: '首页',
+  //         icon: 'dashboard',
+  //         affix: true
+  //       }
+  //     }
+  //   ]
+  // },
 ]
 
 /**
@@ -98,7 +98,7 @@ export const asyncRoutes: RouteConfig[] = [
     component: Layout,
     redirect: '/permission/page',
     meta: {
-      title: '权限管理',
+      title: "ECharts",
       icon: 'lock',
       roles: ['admin', 'editor'], // you can set roles in root nav
       alwaysShow: true // will always show the root menu
@@ -135,82 +135,33 @@ export const asyncRoutes: RouteConfig[] = [
       }
     ]
   },
-  // {
-  //   path: '/icon',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: () => import(/* webpackChunkName: "icons" */ '@/views/icons/index.vue'),
-  //       name: 'Icons',
-  //       meta: {
-  //         title: 'icons',
-  //         icon: 'icon',
-  //         noCache: true
-  //       }
-  //     }
-  //   ]
-  // },
-  // /** when your routing map is too long, you can split it into small modules **/
-  // componentsRouter,
-  // chartsRouter,
-  // nestedRouter,
-  // tableRouter,
   {
-    path: '/example',
+    path: '/components',
     component: Layout,
-    redirect: '/example/create',
+    redirect: '/components/board',
     meta: {
-      title: '测试页面',
+      title: '常用组件',
       icon: 'example'
     },
     children: [
       {
-        path: 'create',
-        name: 'CreateArticle',
-        redirect:'create/create_1/create_1_1',
+        path: 'board',
+        name: 'board',
+        component: () => import(/* webpackChunkName: "example-edit" */ '@/views/kanban/board.vue'),
         meta: {
-          title: '创建',
+          title: '看板列表',
           icon: 'edit'
-        },
-        children: [
-          {
-            path: 'create_1',
-            component: () => import(/* webpackChunkName: "example-create" */ '@/views/example/edit.vue'),
-            name: 'CreateArticle',
-            meta: {
-              title: '创建-子1',
-              icon: 'edit'
-            },
-            children: [
-              {
-                path: 'create_1_1',
-                component: () => import(/* webpackChunkName: "example-create" */ '@/views/example/edit.vue'),
-                name: 'CreateArticle',
-                meta: {
-                  title: '创建-子-子1',
-                  icon: 'edit'
-                }
-              },{
-                path: 'create_1_2',
-                component: () => import(/* webpackChunkName: "example-create" */ '@/views/example/edit.vue'),
-                name: 'CreateArticle',
-                meta: {
-                  title: '创建-子-子2',
-                  icon: 'edit'
-                }
-              }]
-          },
-          {
-            path: 'create_2',
-            component: () => import(/* webpackChunkName: "example-create" */ '@/views/example/edit.vue'),
-            name: 'CreateArticle',
-            meta: {
-              title: '创建-子2',
-              icon: 'edit'
-            }
-          },
-        ]
+        }
+      },
+      {
+        path: 'kanban',
+        name: 'kanban',
+        component: () => import(/* webpackChunkName: "example-edit" */ '@/views/kanban/components/kanban.vue'),
+        meta: {
+          hidden: true,
+          title: '看板详情',
+          icon: 'edit'
+        }
       },
       {
         path: 'edit',

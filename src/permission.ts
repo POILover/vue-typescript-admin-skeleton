@@ -5,21 +5,19 @@ import { Message } from 'element-ui'
 import { Route } from 'vue-router'
 import { UserModule } from '@/store/modules/user'
 import { PermissionModule } from '@/store/modules/permission'
-import settings from './settings'
 
 NProgress.configure({ showSpinner: false })
 
 const whiteList = ['/login', '/auth-redirect']
-
+const title = 'POI Admin'
 const getPageTitle = (key: string) => {
   if (key) {
-    return `${key} - ${settings.title}`
+    return `${key} - ${title}`
   }
-  return `${settings.title}`
+  return `${title}`
 }
 
-router.beforeEach(async(to: Route, _: Route, next: any) => {
-  //TODO: 切换路由立即校验权限
+router.beforeEach(async (to: Route, _: Route, next: any) => {
   // Start progress bar
   NProgress.start()
   // Determine whether the user has logged in
@@ -41,7 +39,7 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
           router.addRoutes(PermissionModule.dynamicRoutes)
           // Hack: ensure addRoutes is complete
           // Set the replace: true, so the navigation will not leave a history record
-          next({ ...to, replace: true })
+          next({ path: to.path === '/' ? PermissionModule.defaultPath : to.path, replace: true })
         } catch (err) {
           // Remove token and redirect to login page
           UserModule.ResetToken()
@@ -50,7 +48,11 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
           NProgress.done()
         }
       } else {
-        next()
+        if (to.path === '/') {
+          next(PermissionModule.defaultPath)
+        } {
+          next()
+        }
       }
     }
   } else {
