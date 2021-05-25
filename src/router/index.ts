@@ -47,45 +47,25 @@ export const constantRoutes: RouteConfig[] = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: () => import(/* webpackChunkName: "redirect" */ '@/views/redirect/index.vue')
+        component: () => import('@/views/redirect/index.vue')
       }
     ]
   },
   {
     path: '/login',
-    component: () => import(/* webpackChunkName: "login" */ '@/views/login/index.vue'),
+    component: () => import('@/views/login/index.vue'),
     meta: { hidden: true }
   },
   {
     path: '/404',
-    component: () => import(/* webpackChunkName: "404" */ '@/views/error-page/404.vue'),
+    component: () => import('@/views/error-page/404.vue'),
     meta: { hidden: true }
   },
   {
     path: '/401',
-    component: () => import(/* webpackChunkName: "401" */ '@/views/error-page/401.vue'),
+    component: () => import('@/views/error-page/401.vue'),
     meta: { hidden: true }
   },
-  // {
-  //   path: '/dashboard',
-  //   component: Layout,
-  //   redirect: '/dashboard/index',
-  //   meta: {
-  //     title: '首页'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
-  //       name: 'Dashboard',
-  //       meta: {
-  //         title: '首页',
-  //         icon: 'dashboard',
-  //         affix: true
-  //       }
-  //     }
-  //   ]
-  // },
 ]
 
 /**
@@ -94,94 +74,78 @@ export const constantRoutes: RouteConfig[] = [
 */
 export const asyncRoutes: RouteConfig[] = [
   {
-    path: '/permission',
+    path: '/components',
     component: Layout,
-    redirect: '/permission/page',
+    redirect: '/components/board',
     meta: {
-      title: "ECharts",
-      icon: 'lock',
-      roles: ['admin', 'editor'], // you can set roles in root nav
-      alwaysShow: true // will always show the root menu
+      title: "组件",
+      roles: ['admin', 'editor'],
+      alwaysShow: true
     },
     children: [
       {
-        path: 'page',
-        component: () => import(/* webpackChunkName: "permission-page" */ '@/views/permission/page.vue'),
-        name: 'PagePermission',
+        path: 'board',
+        component: () => import('@/views/components/kanban/board.vue'),
+        name: 'board',
         meta: {
-          title: '权限页面',
-          // icon: 'lock',
-          // alwaysShow: true,
-          roles: ['admin'] // or you can only set roles in sub nav
-        }
-      },
-      {
-        path: 'directive',
-        component: () => import(/* webpackChunkName: "permission-directive" */ '@/views/permission/directive.vue'),
-        name: 'DirectivePermission',
-        meta: {
-          title: '权限分配'
-          // if do not set roles, means: this page does not require permission
-        }
-      },
-      {
-        path: 'role',
-        component: () => import(/* webpackChunkName: "permission-role" */ '@/views/permission/role.vue'),
-        name: 'RolePermission',
-        meta: {
-          title: '角色管理',
+          title: '看板',
           roles: ['admin']
+        }
+      },
+      {
+        path: 'kanban',
+        component: () => import('@/views/components/kanban/components/kanban.vue'),
+        name: 'kanban',
+        meta: {
+          title: '看板详情',
+          roles: ['admin'],
+          hidden: true
         }
       }
     ]
   },
   {
-    path: '/components',
+    path: '/echarts',
     component: Layout,
-    redirect: '/components/board',
+    redirect: '/echarts/translation',
     meta: {
-      title: '常用组件',
-      icon: 'example'
+      title: 'ECharts',
     },
     children: [
       {
-        path: 'board',
-        name: 'board',
-        component: () => import(/* webpackChunkName: "example-edit" */ '@/views/kanban/board.vue'),
+        path: 'translation',
+        name: 'translation',
+        component: () => import('@/views/echarts-tricks/translation/charts.vue'),
         meta: {
-          title: '看板列表',
-          icon: 'edit'
+          title: '拖拽平移',
         }
       },
       {
-        path: 'kanban',
-        name: 'kanban',
-        component: () => import(/* webpackChunkName: "example-edit" */ '@/views/kanban/components/kanban.vue'),
+        path: 'bgcolors',
+        name: 'bgcolors',
+        component: () => import('@/views/echarts-tricks/bg-colors/charts.vue'),
         meta: {
-          hidden: true,
-          title: '看板详情',
-          icon: 'edit'
+          title: '背景色块',
         }
       },
+    ]
+  },
+  {
+    path: '/css',
+    component: Layout,
+    redirect: '/css/flex_center',
+    meta: {
+      title: 'CSS',
+    },
+    children: [
       {
-        path: 'edit',
-        component: () => import(/* webpackChunkName: "example-edit" */ '@/views/example/edit.vue'),
-        name: 'EditArticle',
+        path: 'flex_center',
+        name: 'flex_center',
+        component: () => import('@/views/css-tricks/flex-center.vue'),
         meta: {
-          title: '编辑',
-          noCache: true,
-          icon: 'example',
+          title: 'flex居中',
         }
       },
-      {
-        path: 'list',
-        component: () => import(/* webpackChunkName: "example-list" */ '@/views/example/list.vue'),
-        name: 'ArticleList',
-        meta: {
-          title: '表格',
-          icon: 'list'
-        }
-      }
     ]
   },
   {

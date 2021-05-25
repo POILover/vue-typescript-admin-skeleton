@@ -1,0 +1,19 @@
+.echarts-container{
+    .title{
+        padding:5px
+    }
+    .charts-container{
+        display: flex;
+        box-sizing: border-box;
+        flex-wrap: wrap;
+        .chart{
+            border: 1px white solid;
+            height:800px;
+            width:50%;
+            background: #cccccc;
+        }
+    }
+    .explain{
+        
+    }
+}

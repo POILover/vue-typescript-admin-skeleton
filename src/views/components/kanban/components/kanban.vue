@@ -67,6 +67,7 @@ import DraggableKanban from "./item.vue";
 import { Input as ElInput } from "element-ui";
 import { IMember, IUser } from "../data/interface";
 import { allUserList, kanbanColumnList } from "../data/data";
+
 @Component({
     name: "DraggableKanbanDemo",
     components: {

@@ -18,6 +18,7 @@ const getPageTitle = (key: string) => {
 }
 
 router.beforeEach(async (to: Route, _: Route, next: any) => {
+  console.log(to)
   // Start progress bar
   NProgress.start()
   // Determine whether the user has logged in

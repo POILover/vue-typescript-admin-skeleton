@@ -14,7 +14,12 @@ import '@/icons/components'
 import '@/permission'
 import * as directives from '@/directives'
 import * as filters from '@/filters'
-
+//TODO: 放shims里面
+declare module "vue/types/vue" {
+  interface Vue {
+    [key: string]: any;
+  }
+}
 Vue.use(ElementUI, {
   size: 'medium', // Set element-ui default size
 })
@@ -27,12 +32,12 @@ Vue.use(SvgIcon, {
 
 // Register global directives
 Object.keys(directives).forEach(key => {
-  Vue.directive(key, (directives as { [key: string ]: DirectiveOptions })[key])
+  Vue.directive(key, (directives as { [key: string]: DirectiveOptions })[key])
 })
 
 // Register global filter functions
 Object.keys(filters).forEach(key => {
-  Vue.filter(key, (filters as { [key: string ]: Function })[key])
+  Vue.filter(key, (filters as { [key: string]: Function })[key])
 })
 
 Vue.config.productionTip = false
